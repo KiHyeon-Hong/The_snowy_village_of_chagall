@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>눈 내리는 사걀의 마을</title>
+		<style>
+			body
+			{
+				background-image: url("media/snow.jpg");
+				background-size: 100%;
+				background-repeat: no-repeat;
+			}
+			div
+			{
+				position: absolute;
+				display: inline-block;
+				color: white;
+				font-size: 200%;
+			}
+		</style>
+	</head>
+	<body onload="init()">
+		<div>*</div><div>*</div><div>*</div><div>*</div><div>*</div><div>*</div>
+		<div>*</div><div>*</div><div>*</div><div>*</div><div>*</div><div>*</div>
+		<div>*</div><div>*</div><div>*</div><div>*</div><div>*</div><div>*</div>
+		<div>*</div><div>*</div><div>*</div><div>*</div><div>*</div><div>*</div>
+		<div>*</div><div>*</div><div>*</div><div>*</div><div>*</div><div>*</div>
+
+		<script>
+			var div = document.getElementsByTagName("div");
+			var wave = new Array(div.length);
+			var timerID = setInterval("snow()", 50);
+
+			function rand()
+			{
+				return Math.floor(Math.random()*95);
+			}
+
+			function waveRand()
+			{
+				return Math.floor(Math.random()*16);
+			}
+
+			function init()
+			{
+				for(var i = 0; i < div.length; i++)
+				{
+					div[i].style.top = rand() + "%";
+					div[i].style.left = rand() + "%";
+					wave[i] = waveRand();
+				}
+			}
+
+			function snow()
+			{
+				for(var i = 0; i < div.length; i++)
+				{
+					var top = div[i].style.top;
+					var left = div[i].style.left;
+
+					top = top.split("%");
+					left = left.split("%");
+
+					top = parseInt(top);
+					left = parseInt(left);
+					
+					top += 1;
+					
+					wave[i] = (wave[i] + 1) % 16;
+
+					if(wave[i] == 0 || wave[i] == 4)
+					{
+						left += 1;
+					}
+					else if(wave[i] == 8 || wave[i] == 12)
+					{
+						left -= 1;
+					}
+
+					if(top > 90)
+					{
+						top = 0;
+						left = rand();
+					}
+
+					div[i].style.top = top + "%";
+					div[i].style.left = left + "%";
+				}
+			}
+		</script>
+	</body>
+</html>
